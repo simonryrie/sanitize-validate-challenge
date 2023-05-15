@@ -1,4 +1,4 @@
-function home(posts) {
+function home(posts, errors = {}, values = {}) {
   const title = "All posts";
   const content = /*html*/ `
     <h2>New post</h2>
@@ -7,10 +7,12 @@ function home(posts) {
         <label for="nickname">Nickname</label>
         <input id="nickname" name="nickname">
       </p>
+      ${validation(errors.nickname)}      
       <p>
         <label for="message">Message</label>
         <textarea id="message" name="message"></textarea>
       </p>
+      ${validation(errors.message)} 
       <button>Send</button>
     </form>
     <h2>All posts</h2>
@@ -30,6 +32,14 @@ function postItem(post) {
       <p>—${post.nickname} | ${prettyDate}</p>
     </li>
   `;
+}
+
+function validation(message) {
+  if (message) {
+    return `<span style="color: red">${message}</span>`;
+  } else {
+    return "";
+  }
 }
 
 function layout(title, content) {
